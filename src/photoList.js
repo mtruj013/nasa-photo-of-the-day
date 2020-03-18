@@ -1,6 +1,7 @@
 //import what need importing 
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
+import PhotoCard from './photoCard';
 
 
 //make component 
@@ -12,7 +13,7 @@ export default function PhotoList(){
     useEffect(() => {
         axios.get("https://api.nasa.gov/planetary/apod?api_key=dFYdf90wadhjU2JZHg1JiatvzJ0qHWUEs13YJ1wW")
         .then(response =>{
-            console.log(response);
+            console.log(response.data);
             setPhotos(response.data)
         })
         .catch(error =>{
@@ -20,7 +21,15 @@ export default function PhotoList(){
         })
     }, []);
     return (
-        <div className="photoContainer">photos here
+        <div className="photoContainer">
+            {/* return( */}
+                <PhotoCard 
+                    title={photos.title}
+                    date={photos.date}
+                    copyright={photos.copyright}
+                    desc={photos.explanation}
+                    photoUrl={photos.url}
+                />
         </div>
     )
 }
